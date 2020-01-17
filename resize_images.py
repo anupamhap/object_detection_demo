@@ -17,7 +17,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--save-dir",
         help="Directory path to save resized images.",
-        default="./data/images",
+        default="./data/images/train/",
         type=str,
     )
     parser.add_argument(
@@ -48,7 +48,9 @@ if __name__ == "__main__":
         print(".", end="", flush=True)
         img = cv2.imread(fname)
         img_small = cv2.resize(img, target_size)
-        new_fname = "{}.{}".format(str(i), ext)
+        # new_fname = "{}.{}".format(str(i), ext)
+        new_fname = fname.split("\\")[-1]
+        print(new_fname)
         small_fname = os.path.join(save_dir, new_fname)
         cv2.imwrite(small_fname, img_small)
     print(
