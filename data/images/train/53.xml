@@ -1,0 +1,26 @@
+<annotation>
+	<folder>training_data</folder>
+	<filename>IMG_20200109_150146.jpg</filename>
+	<path>/home/anupam/workspaces/PycharmProjects/models/data/training_data/IMG_20200109_150146.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>4000</width>
+		<height>3000</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bottle</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>399</xmin>
+			<ymin>1058</ymin>
+			<xmax>3131</xmax>
+			<ymax>1867</ymax>
+		</bndbox>
+	</object>
+</annotation>
