@@ -1,13 +1,13 @@
 <annotation>
-	<folder>training_data</folder>
+	<folder>train</folder>
 	<filename>IMG_20200109_150838.jpg</filename>
-	<path>/home/anupam/workspaces/PycharmProjects/models/data/training_data/IMG_20200109_150838.jpg</path>
+	<path>C:\Users\developer\PycharmProjects\object_detection_demo\data\images\train\IMG_20200109_150838.jpg</path>
 	<source>
 		<database>Unknown</database>
 	</source>
 	<size>
-		<width>4000</width>
-		<height>3000</height>
+		<width>800</width>
+		<height>600</height>
 		<depth>3</depth>
 	</size>
 	<segmented>0</segmented>
@@ -17,10 +17,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>395</xmin>
-			<ymin>1367</ymin>
-			<xmax>2481</xmax>
-			<ymax>2576</ymax>
+			<xmin>90</xmin>
+			<ymin>269</ymin>
+			<xmax>461</xmax>
+			<ymax>516</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -29,10 +29,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>1204</xmin>
-			<ymin>613</ymin>
-			<xmax>3281</xmax>
-			<ymax>1567</ymax>
+			<xmin>251</xmin>
+			<ymin>132</ymin>
+			<xmax>628</xmax>
+			<ymax>299</ymax>
 		</bndbox>
 	</object>
 </annotation>
