@@ -6,7 +6,7 @@ metadata:
   labels:
     app: spring-cloud-data-flow
 data:
-  application.yaml: 
+  application.yaml: |-
     management:
       endpoints:
         web:
@@ -16,26 +16,19 @@ data:
     spring:
       cloud:
          dataflow:
-         task:
-            platform:
-              kubernetes:
-                accounts:
-                  default:
-                    limits:
-                      memory: 1024Mi
-          security:
-            authorization:
-              provider-role-mappings:
-                keycloak:
-                  map-oauth-scopes: true
-                    role-mappings:
-                      ROLE_VIEW: dataflow.view
-                      ROLE_CREATE: dataflow.create
-                      ROLE_MANAGE: dataflow.manage
-                      ROLE_DEPLOY: dataflow.create
-                      ROLE_DESTROY: dataflow.create
-                      ROLE_MODIFY: dataflow.create
-                      ROLE_SCHEDULE: dataflow.create
+            security:
+              authorization:
+                provider-role-mappings:
+                  keycloak:
+                     map-oauth-scopes: true
+                     role-mappings:
+                        ROLE_VIEW: dataflow.view
+                        ROLE_CREATE: dataflow.create
+                        ROLE_MANAGE: dataflow.manage
+                        ROLE_DEPLOY: dataflow.create
+                        ROLE_DESTROY: dataflow.create
+                        ROLE_MODIFY: dataflow.create
+                        ROLE_SCHEDULE: dataflow.create
       security:
          oauth2:
             client:
