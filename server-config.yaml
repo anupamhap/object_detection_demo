@@ -1,34 +1,41 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: scdf2-data-flow-server
+  name: scdf-server
   namespace: default
   labels:
     app: spring-cloud-data-flow
 data:
-  application.yaml: |-
+  application.yaml: 
     management:
       endpoints:
         web:
           base-path: /management
-      security:
+      security
         roles: MANAGE
     spring:
       cloud:
          dataflow:
-            security:
-              authorization:
-                provider-role-mappings:
-                  keycloak:
-                     map-oauth-scopes: true
-                     role-mappings:
-                        ROLE_VIEW: dataflow.view
-                        ROLE_CREATE: dataflow.create
-                        ROLE_MANAGE: dataflow.manage
-                        ROLE_DEPLOY: dataflow.create
-                        ROLE_DESTROY: dataflow.create
-                        ROLE_MODIFY: dataflow.create
-                        ROLE_SCHEDULE: dataflow.create
+         task:
+            platform:
+              kubernetes:
+                accounts:
+                  default:
+                    limits:
+                      memory: 1024Mi
+          security:
+            authorization:
+              provider-role-mappings:
+                keycloak:
+                  map-oauth-scopes: true
+                    role-mappings:
+                      ROLE_VIEW: dataflow.view
+                      ROLE_CREATE: dataflow.create
+                      ROLE_MANAGE: dataflow.manage
+                      ROLE_DEPLOY: dataflow.create
+                      ROLE_DESTROY: dataflow.create
+                      ROLE_MODIFY: dataflow.create
+                      ROLE_SCHEDULE: dataflow.create
       security:
          oauth2:
             client:
@@ -37,7 +44,7 @@ data:
                   redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
                   authorization-grant-type: authorization_code
                   client-id: dataflow
-                  client-secret: secret
+                  client-secret: 4461532a-4b3d-4e32-a20d-ac33386eaca0
                   scope:
                   - openid
                   - dataflow.view
@@ -57,7 +64,7 @@ data:
                opaquetoken:
                introspection-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/token/introspect
                client-id: dataflow
-               client-secret: d3bf0ee0-99fd-400b-beae-af7e2f4bde3c
+               client-secret: 4461532a-4b3d-4e32-a20d-ac33386eaca0
             authorization:
                check-token-access: isAuthenticated()                  
       datasource:
