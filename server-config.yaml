@@ -1,0 +1,69 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: scdf2-data-flow-server
+  namespace: default
+  labels:
+    app: spring-cloud-data-flow
+data:
+  application.yaml: |-
+    management:
+      endpoints:
+        web:
+          base-path: /management
+      security:
+        roles: MANAGE
+    spring:
+      cloud:
+         dataflow:
+            security:
+              authorization:
+                provider-role-mappings:
+                  keycloak:
+                     map-oauth-scopes: true
+                     role-mappings:
+                        ROLE_VIEW: dataflow.view
+                        ROLE_CREATE: dataflow.create
+                        ROLE_MANAGE: dataflow.manage
+                        ROLE_DEPLOY: dataflow.create
+                        ROLE_DESTROY: dataflow.create
+                        ROLE_MODIFY: dataflow.create
+                        ROLE_SCHEDULE: dataflow.create
+      security:
+         oauth2:
+            client:
+            registration:
+               keycloak:
+                  redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+                  authorization-grant-type: authorization_code
+                  client-id: dataflow
+                  client-secret: secret
+                  scope:
+                  - openid
+                  - dataflow.view
+                  - dataflow.deploy
+                  - dataflow.destroy
+                  - dataflow.manage
+                  - dataflow.modify
+                  - dataflow.schedule
+                  - dataflow.create
+            provider:
+               jwk-set-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/certs
+               token-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/token
+               user-info-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/userinfo
+               user-name-attribute: user_name
+               authorization-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/auth
+            resourceserver:
+               opaquetoken:
+               introspection-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/token/introspect
+               client-id: dataflow
+               client-secret: d3bf0ee0-99fd-400b-beae-af7e2f4bde3c
+            authorization:
+               check-token-access: isAuthenticated()                  
+      datasource:
+        url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/mysql
+        username: root
+        password: ${mysql-root-password}
+        driverClassName: org.mariadb.jdbc.Driver
+        testOnBorrow: true
+        validationQuery: "SELECT 1"
