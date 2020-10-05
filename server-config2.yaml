@@ -1,0 +1,51 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: scdf-server
+  namespace: default
+  labels:
+    app: spring-cloud-data-flow
+data:
+  application.yaml: |-
+    spring:
+      cloud:
+         dataflow:
+            task:
+              platform:
+                kubernetes:
+                  accounts:
+                    default:
+                      limits:
+                        memory: 1024Mi
+            security:
+              authorization:
+                map-oauth-scopes: true
+                role-mappings:
+                  ROLE_VIEW: dataflow.view
+                  ROLE_CREATE: dataflow.create
+                  ROLE_MANAGE: dataflow.manage
+                  ROLE_DEPLOY: dataflow.create
+                  ROLE_DESTROY: dataflow.create
+                  ROLE_MODIFY: dataflow.create
+                  ROLE_SCHEDULE: dataflow.create
+      security:
+         oauth2:
+            client:
+                client-id: dataflow
+                client-secret: 4461532a-4b3d-4e32-a20d-ac33386eaca0
+                access-token-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/token
+                user-authorization-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/auth
+            resource:
+               user-info-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/userinfo
+               token-info-uri: http://10.68.92.118:8080/auth/realms/scdf/protocol/openid-connect/token/introspect
+               client-id: dataflow
+               client-secret: 4461532a-4b3d-4e32-a20d-ac33386eaca0
+            authorization:
+               check-token-access: isAuthenticated()                  
+      datasource:
+        url: jdbc:mysql://${MYSQL_SERVICE_HOST}:${MYSQL_SERVICE_PORT}/mysql
+        username: root
+        password: ${mysql-root-password}
+        driverClassName: org.mariadb.jdbc.Driver
+        testOnBorrow: true
+        validationQuery: "SELECT 1"
